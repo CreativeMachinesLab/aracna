@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>6.0</ProjectVersion>
+    <ToolchainName>com.Atmel.AVRGCC8</ToolchainName>
+    <ProjectGuid>ddca5a08-178a-4cfb-84b6-fe1605e2e8e6</ProjectGuid>
+    <Name>aracna</Name>
+    <avrdevice>atmega644p</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <AvrProjectType>Importer</AvrProjectType>
+    <OutputType>Executable</OutputType>
+    <Language>C</Language>
+    <OutputFileName>aracna</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <ToolchainFlavour>AS4_AvrGcc</ToolchainFlavour>
+    <avrtool>com.atmel.avrdbg.tool.ispmk2</avrtool>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <OverrideVtorValue />
+    <eraseonlaunchrule>0</eraseonlaunchrule>
+    <avrtoolinterface>ISP</avrtoolinterface>
+    <com_atmel_avrdbg_tool_ispmk2>
+      <ToolType>com.atmel.avrdbg.tool.ispmk2</ToolType>
+      <ToolName>AVRISP mkII</ToolName>
+      <ToolNumber>0000B0038215</ToolNumber>
+      <KeepTimersRunning>
+      </KeepTimersRunning>
+      <OverrideVtor>
+      </OverrideVtor>
+      <OverrideVtorValue>
+      </OverrideVtorValue>
+      <Channel>
+        <host>127.0.0.1</host>
+        <port>53216</port>
+        <ssl>False</ssl>
+      </Channel>
+      <ToolOptions>
+        <InterfaceName>ISP</InterfaceName>
+        <InterfaceProperties>
+          <JtagDbgClock>249000</JtagDbgClock>
+          <JtagProgClock>1000000</JtagProgClock>
+          <IspClock>250000</IspClock>
+          <JtagInChain>false</JtagInChain>
+          <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
+          <JtagDevicesBefore>0</JtagDevicesBefore>
+          <JtagDevicesAfter>0</JtagDevicesAfter>
+          <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
+          <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
+        </InterfaceProperties>
+      </ToolOptions>
+    </com_atmel_avrdbg_tool_ispmk2>
+    <AsfVersion>3.1.3</AsfVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'default' ">
+    <OutputPath>bin\default\</OutputPath>
+    <ToolchainSettings>
+      <AvrGcc xmlns="">
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>true</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>true</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>F_CPU=16000000UL</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PackStructureMembers>true</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>true</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.warnings.AllWarnings>true</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.compiler.miscellaneous.OtherFlags>-gdwarf-2 -std=gnu99 </avrgcc.compiler.miscellaneous.OtherFlags>
+        <avrgcc.assembler.general.AssemblerFlags>-Wall -gdwarf-2 -std=gnu99 -DF_CPU=16000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums</avrgcc.assembler.general.AssemblerFlags>
+      </AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
+  <ItemGroup>
+    <Compile Include="aracna.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ax12.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ax12.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="macros.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="uart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="aracna.c">
+      <SubType>compile</SubType>
+      <CustomCompilationSetting Condition="'$(Configuration)' == 'default'">
+      </CustomCompilationSetting>
+    </Compile>
+    <Compile Include="uart.c">
+      <SubType>compile</SubType>
+      <CustomCompilationSetting Condition="'$(Configuration)' == 'default'">
+      </CustomCompilationSetting>
+    </Compile>
+  </ItemGroup>
+</Project>

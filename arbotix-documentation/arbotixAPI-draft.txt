@@ -1,0 +1,32 @@
+Command list for Aracna rebase.
+
+position and velocity will have values in the range [0,1023]
+positions, velocities, etc will use up to 4 bytes (ie. literal strings such as "423" or "1023")
+
+might want to include a checksum in the future...
+
+Hello:
+	PC sends ".h" "\n"
+	Board replies ".h" "\n"
+Query:
+	PC sends ".q" "\n"
+	ArbotiX replies ".q" <CSV board state> "\n"
+		<CSV board state> = <other info here...?>,<servo0_position>,<servo1_position>...
+Command position:
+	PC sends ".c" <goal position vector> "\n"
+		<goal position vector> = <servo0_position>,<servo1_position>...
+	ArbotiX replies ".c" <current position vector> "\n"
+Set servo speed:
+	PC sends ".v" <motor#> "," <speed> "\n"
+	ArbotiX replies ".v" <motor#> "," <current speed> "\n"
+Set servo torque:
+	PC sends "t" <motor#> "," <torque> "\n"
+	ArbotiX replies ".t" <motor#> "," <current torque> "\n"
+
+reserved commands for using the other i/o pins on the board. These are included to make the project more easily extensible in the future.
+Set i/o port direction: ".d"
+Set i/o output high or low: ".p"
+Read i/o (digital): ".r"
+Read ADC: ".a"
+Servo control: ".s"
+LED control: ".l"

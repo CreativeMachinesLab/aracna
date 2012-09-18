@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "aracna", "aracna\aracna.cproj", "{DDCA5A08-178A-4CFB-84B6-FE1605E2E8E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		default|AVR = default|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDCA5A08-178A-4CFB-84B6-FE1605E2E8E6}.default|AVR.ActiveCfg = default|AVR
+		{DDCA5A08-178A-4CFB-84B6-FE1605E2E8E6}.default|AVR.Build.0 = default|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

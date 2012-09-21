@@ -1,26 +1,31 @@
 /*
-  ax12.cpp - ArbotiX library for AX/RX control.
-  Copyright (c) 2008-2011 Michael E. Ferguson.  All right reserved.
+  Adapted for Creative Machines Lab Aracna Firmware
+  ax12.c - ArbotiX library for AX control
+  Changes Copyright (c) Creative Machines Lab, Cornell University, 2012 - http://www.creativemachines.org
+  Changes Authored by Jeremy Blum - http://www.jeremyblum.com
+  
+  Original Copyright (c) 2008-2011 Michael E. Ferguson.  All right reserved.
 
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
+  LICENSE: GPLv3
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-  This library is distributed in the hope that it will be useful,
+  This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 //#include "wiring.h" // we need this for the serial port defines
 #include "macros.h"
 #include "ax12.h"
 #include <avr/interrupt.h>
+#include <stdio.h>
 
 /******************************************************************************
  * Hardware Serial Level, this uses the same stuff as Serial1, therefore 
@@ -114,10 +119,12 @@ void ax12writeB(unsigned char data){
     while (bit_is_clear(UCSR1A, UDRE1));
     UDR1 = data;
 }
-/** We have a one-way recieve buffer, which is reset after each packet is receieved.
+/** We have a one-way receive buffer, which is reset after each packet is received.
     A wrap-around buffer does not appear to be fast enough to catch all bytes at 1Mbps. */
 ISR(USART1_RX_vect){
+	
     ax_rx_int_buffer[(ax_rx_int_Pointer++)] = UDR1;
+	//fprintf(stdout, "0x%X,", ax_rx_int_buffer[(ax_rx_int_Pointer)]);
 }
 
 /** read back the error code for our latest packet read */
@@ -177,7 +184,8 @@ void ax12Init(long baud){
     PORTD &= 0xEF;  // Servo B low
   #endif
     // enable rx
-    setRX(0);    
+    setRX(0);
+	sei();  
 #endif
 }
 
@@ -223,7 +231,7 @@ void ax12SetRegister(int id, int regstart, int data){
     ax12writeB(data&0xff);
     // checksum = 
     ax12writeB(checksum);
-    setRX(id);
+    //setRX(id);
     //ax12ReadPacket();
 }
 /* Set the value of a double-byte register. */
@@ -240,7 +248,7 @@ void ax12SetRegister2(int id, int regstart, int data){
     ax12writeB((data&0xff00)>>8);
     // checksum = 
     ax12writeB(checksum);
-    setRX(id);
+    //setRX(id);
     //ax12ReadPacket();
 }
 

@@ -10,7 +10,10 @@ ax12.d ax12.o ax12.o: .././ax12.c .././macros.h .././ax12.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/common.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/version.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h \
-  c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h
+  c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h \
+  c:/winavr-20100110/lib/gcc/../../avr/include/stdio.h \
+  c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdarg.h \
+  c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stddef.h
 
 .././macros.h:
 
@@ -39,3 +42,9 @@ c:/winavr-20100110/lib/gcc/../../avr/include/avr/version.h:
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h:
+
+c:/winavr-20100110/lib/gcc/../../avr/include/stdio.h:
+
+c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdarg.h:
+
+c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stddef.h:

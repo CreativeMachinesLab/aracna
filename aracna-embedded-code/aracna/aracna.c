@@ -1,7 +1,8 @@
 /*
 	Creative Machines Lab Aracna Firmware
-	Copyright (c) Creative Machines Lab, Cornell University, 2012
-	Authored by Jeremy Blum and Eric Gold
+	aracna.c - Main Program File
+	Copyright (c) Creative Machines Lab, Cornell University, 2012 - http://www.creativemachines.org
+	Authored by Jeremy Blum - http://www.jeremyblum.com
 
 	LICENSE: GPLv3
 	This program is free software: you can redistribute it and/or modify
@@ -44,7 +45,7 @@
 // UART Configuration and Buffers
 // putchar and getchar are in uart.c
 //FILE uart_str = FDEV_SETUP_STREAM(uart_putchar, uart_getchar, _FDEV_SETUP_RW); 
-	#define SERIAL_STRING_LENGTH 40				//Input String Length
+	#define SERIAL_STRING_LENGTH 60				//Input String Length
 	char input[SERIAL_STRING_LENGTH];			//complete input string
 	uint16_t positions[NUM_MOTORS] = {0};		//For holding the positions of our servos
 	char cmd; 									//the command character
@@ -56,8 +57,7 @@ volatile int ax_tx_Pointer;
 volatile int ax_rx_int_Pointer;
 
 
-/** Main program entry point. This routine contains the overall program flow, including initial
- *  setup of all components and the main program loop.
+/** Main program entry point. This routine contains the overall program flow
  */
 int main(void)
 {
@@ -113,51 +113,44 @@ int main(void)
 		//Assumes motor IDs are 0 <-> NUM_MOTORS-1
 		else if (cmd == 'c')
 		{
-			parse_serial();	//Read the input string to an array of positions
-			memset(input, 0, sizeof(input)); 					//Clear previous input
+			parse_serial();						//Read the input string to an array of positions
+			memset(input, 0, sizeof(input)); 	//Clear previous input
+			
 			//send those position commands
 			for (int i = 0; i<NUM_MOTORS; i++)
 			{
 				ax12SetRegister2(i, AX_GOAL_POSITION_L, positions[i]);
 			}
 			
-			//Only after we've commanded all the positions, can we check the status
-			_delay_ms(2000);
-			fprintf(stdout, ".c");					//ACK
+			//Only after we have commanded all the positions, can we check the status
+			fprintf(stdout, ".c");														//ACK Character
 			
-			/* READING CURRENT MOTOR STATE ISN'T CURRENTLY SUPPORTED... */
+			//Send ACK Info
 			for (int i = 0; i<NUM_MOTORS; i++)
 			{
-				//while(ax12GetRegister(i,AX_MOVING,1));	//Wait for this motor to finish moving
-				uint8_t present_posL = ax12GetRegister(i, AX_PRESENT_POSITION_L, 1);
-				uint8_t present_posH = ax12GetRegister(i, AX_PRESENT_POSITION_H, 1);
-				fprintf(stdout, "%d %d", present_posL, present_posH); //Return the present position
-				if (i<NUM_MOTORS-1) fprintf(stdout, ","); //Print delimiter
+				while(ax12GetRegister(i,AX_MOVING,1));									//Wait for this motor to finish moving
+				fprintf(stdout, "%d", ax12GetRegister(i, AX_PRESENT_POSITION_L, 2));	//Return the present position
+				if (i<NUM_MOTORS-1) fprintf(stdout, ",");								//Print delimiter
 			}				
 			
-			
-			fprintf(stdout, "\n");					//ACK
-			
-			
-			
-			
-			
+			fprintf(stdout, "\n");														//ACK Newline
 		}
 	}
 
 }
 
+/** initialize()
+	Sets up the UARTS, configures pin directions, says hello, then blinks at you.
+*/
 void initialize(void)
 {
-	//init the UART -- uart_init() is in uart.c
+	//init the UART0 to the Computer
 	uart_init();
 	stdout = &uart_output;
 	stdin  = &uart_input;
 	
-	
-	
+	//Initialize the AX12 UART1
 	ax12Init(1000000);
-	setRX(0);
 	
 	//Initialize Pin Directions and States for I/O
 	DDRB |= (DEBUG_LED_NUM);
@@ -166,18 +159,16 @@ void initialize(void)
 	//We're live.  Say Hello
 	fprintf(stdout,".h\n");
 	
-	//Blink to show we're alive.
-	ax12SetRegister(0, AX_LED, 0);
-	_delay_ms(300);
-	ax12SetRegister(0, AX_LED, 1);
-	_delay_ms(300);
-	ax12SetRegister(0, AX_LED, 0);
+	//Blink The Board LED and all Dynamixel LEDs to show We're good to go
+	for (int i = 0; i<NUM_MOTORS; i++) ax12SetRegister(i, AX_LED, 0);
+	DEBUG_LED_OFF();
+	_delay_ms(500);
+	for (int i = 0; i<NUM_MOTORS; i++) ax12SetRegister(i, AX_LED, 1);
+	DEBUG_LED_ON();
+	_delay_ms(500);
+	for (int i = 0; i<NUM_MOTORS; i++) ax12SetRegister(i, AX_LED, 0);
+	DEBUG_LED_OFF();
 	
-	ax12SetRegister(1, AX_LED, 0);
-	_delay_ms(300);
-	ax12SetRegister(1, AX_LED, 1);
-	_delay_ms(300);
-	ax12SetRegister(1, AX_LED, 0);
 	
 	
 }

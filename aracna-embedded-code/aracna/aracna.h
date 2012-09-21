@@ -1,7 +1,8 @@
 /*
 	Creative Machines Lab Aracna Firmware
-	Copyright (c) Creative Machines Lab, Cornell University, 2012
-	Authored by Jeremy Blum and Eric Gold
+	aracna.h - Main Program Header File
+	Copyright (c) Creative Machines Lab, Cornell University, 2012 - http://www.creativemachines.org
+	Authored by Jeremy Blum - http://www.jeremyblum.com
 
 	LICENSE: GPLv3
 	This program is free software: you can redistribute it and/or modify

@@ -1,5 +1,6 @@
-ARACNA - An Open Source Robotics Platform Evolutionary Algorithm Development
-============================================================================
+ARACNA
+======
+**_An Open Source Robotics Platform for Evolutionary Algorithm Development_**
 Aracna is a platform for developing evolutionary algorithms in the real world.  A host computer evolves gaits, and the aracna robot is able to test them.  Note that Aracna is still a work in progress.
 
 Developers

@@ -74,7 +74,7 @@ int main(void)
 		if (cmd == 'q')
 		{
 			memset(input, 0, sizeof(input)); 							//Clear previous input
-			fprintf(stdout, ".q%d\n",   FIRMWARE_VERSION);  			//ACK w/ Firmware Version
+			fprintf(stdout, ".q%d,%d\n",   FIRMWARE_VERSION, NUM_MOTORS);  			//ACK w/ Firmware Version, # of Motors
 		}
 		
 		//Command = 'l' - Command to Control Debug LED

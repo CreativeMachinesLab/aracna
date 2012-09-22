@@ -26,7 +26,7 @@
 #include <stdio.h>
 
 #ifndef BAUD
-#define BAUD 115200
+#define BAUD 38400
 #endif
 #include <util/setbaud.h>
 

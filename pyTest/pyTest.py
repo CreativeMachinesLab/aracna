@@ -33,7 +33,7 @@ success = 0
 port = raw_input('What COM port is your XBEE Radio Connected to (Enter number, ex: 2)? ')
 while (not success):
     try:
-        ser = serial.Serial("COM%s" % port, 115200)
+        ser = serial.Serial("COM%s" % port, 38400)
         success = 1
     except Exception, e:
         port = raw_input("I can't open that Serial port.  Please choose another serial port number: ")
@@ -43,16 +43,17 @@ print ("\nThanks!  I'm going run continuously, exercising my functionality.\nI w
 time.sleep(1)
 
 print (    "Setting steppers to various speeds:  "),
-ser.write (".v0,0\n")
+ser.write (".v500,500\n")
 print (ser.readline()),
+time.sleep(.5)
 
 while (1):
     print ("Moving all steppers to Position 0:  "),
     ser.write (".c0,0\n")
     print (ser.readline()),
     time.sleep(sleep_time)
-    print ("Moving all steppers to Position 1023: "),
-    ser.write (".c50,50\n")
+    print ("Moving all steppers to Position 500: "),
+    ser.write (".c500,500\n")
     print (ser.readline()),
     time.sleep(sleep_time)
 

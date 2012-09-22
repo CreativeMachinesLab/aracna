@@ -39,11 +39,14 @@ while (not success):
         port = raw_input("I can't open that Serial port.  Please choose another serial port number: ")
 
 
-print ("\nThanks!  I'm going run continuously, exercising my functionality.\nI will ACK each command sent from your computer.\n"),
+print ("\nThanks!  I'm going run continuously, exercising my functionality.\nI will ACK each command sent from your computer.\n\n"),
 time.sleep(1)
 
-while (1):
+print (    "Setting steppers to various speeds:  "),
+ser.write (".v100,1000\n")
+print (ser.readline()),
 
+while (1):
     print ("Moving all steppers to Position 20:  "),
     ser.write (".c20,20\n")
     print (ser.readline()),

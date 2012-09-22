@@ -17,8 +17,9 @@ Command position:
 		<goal position vector> = <servo0_position>,<servo1_position>...
 	ArbotiX replies ".c" <current position vector> "\n"
 Set servo speed:
-	PC sends ".v" <motor#> "," <speed> "\n"
-	ArbotiX replies ".v" <motor#> "," <current speed> "\n"
+	PC sends ".v" <speed vector>  "\n"
+		<speed vector> = <servo0_speed>,<servo1_speed>...
+	ArbotiX replies ".v" <current speed vector> "\n"
 Set servo torque:
 	PC sends "t" <motor#> "," <torque> "\n"
 	ArbotiX replies ".t" <motor#> "," <current torque> "\n"

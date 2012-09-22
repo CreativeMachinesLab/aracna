@@ -47,7 +47,7 @@
 //FILE uart_str = FDEV_SETUP_STREAM(uart_putchar, uart_getchar, _FDEV_SETUP_RW); 
 	#define SERIAL_STRING_LENGTH 60				//Input String Length
 	char input[SERIAL_STRING_LENGTH];			//complete input string
-	uint16_t positions[NUM_MOTORS] = {0};		//For holding the positions of our servos
+	uint16_t vals[NUM_MOTORS] = {0};			//For holding the values that come over serial for each of our servos
 	char cmd; 									//the command character
 
 
@@ -86,26 +86,31 @@ int main(void)
 			fprintf(stdout, ".l%d\n", DEBUG_LED_STATE());				//ACK		
 		}
 		
-		//Command = 'v' - Set Motor Speed
+		//Command = 'v' - Sets all motor speeds
+		//Comma separated entries telling all motors to set certain speeds
+		//Assumes motor IDs are 0 <-> NUM_MOTORS-1
 		else if (cmd == 'v')
 		{
-			//find the number of digits for the speed value
-			uint8_t i = 4;
-			while (input[i] != '\n') i++;
-			uint8_t count = i-4;
-			uint8_t val[count];
-			for (uint8_t j = 0; j<count;j++) val[j] = input[4+j] - '0';
+			parse_serial();						//Read the input string to an array of values
+			memset(input, 0, sizeof(input)); 	//Clear previous input
 			
-			uint16_t speed = 0;
-			if		(count == 4)	speed = val[0]*1000 + val[1]*100 + val[2]*10 + val[3];
-			else if (count == 3)	speed = val[0]*100 + val[1]*10 + val[2];
-			else if (count == 2)	speed = val[0]*10 + val[1];
-			else					speed = val[0];
+			//send those speed commands
+			for (int i = 0; i<NUM_MOTORS; i++)
+			{
+				ax12SetRegister2(i, AX_GOAL_SPEED_L, vals[i]);
+			}
+			_delay_ms(25);
+			//Only after we have commanded all the speeds, can we check the status
+			fprintf(stdout, ".v");														//ACK Character
 			
-			ax12SetRegister2(input[2] - '0', AX_GOAL_SPEED_L, speed);
+			//Send ACK Info
+			for (int i = 0; i<NUM_MOTORS; i++)
+			{
+				fprintf(stdout, "%d", ax12GetRegister(i, AX_GOAL_SPEED_L, 2));	//Return velocity setting
+				if (i<NUM_MOTORS-1) fprintf(stdout, ",");								//Print delimiter
+			}
 			
-			memset(input, 0, sizeof(input)); 							//Clear previous input
-			fprintf(stdout, "%d", ax12GetRegister(i, AX_GOAL_SPEED_L, 2));				//ACK
+			fprintf(stdout, "\n");														//ACK Newline
 		}
 		
 		//Command = 'c' - Command all the motors to a new position
@@ -119,7 +124,7 @@ int main(void)
 			//send those position commands
 			for (int i = 0; i<NUM_MOTORS; i++)
 			{
-				ax12SetRegister2(i, AX_GOAL_POSITION_L, positions[i]);
+				ax12SetRegister2(i, AX_GOAL_POSITION_L, vals[i]);
 			}
 			
 			//Only after we have commanded all the positions, can we check the status
@@ -174,12 +179,12 @@ void initialize(void)
 }
 
 /** parse_serial()
-	Assumes the input buffer has been populated with data of this form: ".c<pos0>,<pos1>,<pos2>,...<pos7>\n" as a char array
-	This function reads this buffer, and populates the "positions" array with the integer representations of 10-bit positions values for each motor
+	Assumes the input buffer has been populated with data of this form: ".c<val0>,<val1>,<val2>,...<val7>\n" as a char array
+	This function reads this buffer, and populates the "vals" array with the integer representations of 10-bit values for each motor command
 */
 void parse_serial(void)
 {
-	for (uint8_t i = 0; i < NUM_MOTORS; i++) positions[i] = 0;
+	for (uint8_t i = 0; i < NUM_MOTORS; i++) vals[i] = 0;
 	//Skip leading '.' and command char
 	uint8_t i = 2;
 	uint8_t motor_num = 0;
@@ -190,10 +195,10 @@ void parse_serial(void)
 		//look for the commas
 		if (input[i] == ',' || input[i] == '\n')
 		{
-			if (mtr_tmp[3] < 10)		positions[motor_num] = mtr_tmp[0]*1000 + mtr_tmp[1]*100 + mtr_tmp[2]*10 + mtr_tmp[3];
-			else if (mtr_tmp[2] < 10)	positions[motor_num] = mtr_tmp[0]*100 + mtr_tmp[1]*10 + mtr_tmp[2];
-			else if (mtr_tmp[1] < 10)	positions[motor_num] = mtr_tmp[0]*10 + mtr_tmp[1];
-			else						positions[motor_num] = mtr_tmp[0];
+			if (mtr_tmp[3] < 10)		vals[motor_num] = mtr_tmp[0]*1000 + mtr_tmp[1]*100 + mtr_tmp[2]*10 + mtr_tmp[3];
+			else if (mtr_tmp[2] < 10)	vals[motor_num] = mtr_tmp[0]*100 + mtr_tmp[1]*10 + mtr_tmp[2];
+			else if (mtr_tmp[1] < 10)	vals[motor_num] = mtr_tmp[0]*10 + mtr_tmp[1];
+			else						vals[motor_num] = mtr_tmp[0];
 				
 			motor_num++;
 			for (uint8_t j = 0; j<4; j++) mtr_tmp[j] = 10;

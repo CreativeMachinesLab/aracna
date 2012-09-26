@@ -20,10 +20,10 @@
 */
 
 /** FIRMWARE REVISION  		*/
-	#define FIRMWARE_VERSION 0x00
+	#define FIRMWARE_VERSION 0x01
 	
 /** HARDWARE CONFIGURATION	*/
-	#define NUM_MOTORS	2
+	#define NUM_MOTORS	8
 
 #ifndef F_CPU
 #define F_CPU 16000000UL

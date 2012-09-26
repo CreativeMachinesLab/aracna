@@ -43,17 +43,23 @@ print ("\nThanks!  I'm going run continuously, exercising my functionality.\nI w
 time.sleep(1)
 
 print (    "Setting steppers to various speeds:  "),
-ser.write (".v500,500\n")
+ser.write (".v500,500,500,500,500,500,500,500\n")
 print (ser.readline()),
 time.sleep(.5)
 
 while (1):
-    print ("Moving all steppers to Position 0:  "),
-    ser.write (".c0,0\n")
+    print ("Stepper Arrangement 1: "),
+    ser.write (".c0,512,0,512,0,1000,0,1000\n")
     print (ser.readline()),
     time.sleep(sleep_time)
-    print ("Moving all steppers to Position 500: "),
-    ser.write (".c500,500\n")
+
+    print ("Stepper Arrangement 2: "),
+    ser.write (".c512,512,512,512,1000,1000,1000,1000\n")
+    print (ser.readline()),
+    time.sleep(sleep_time)
+    
+    print ("Stepper Arrangement 3: "),
+    ser.write (".c0,0,0,0,0,0,0,0\n")
     print (ser.readline()),
     time.sleep(sleep_time)
 

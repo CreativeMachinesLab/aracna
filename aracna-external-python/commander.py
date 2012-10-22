@@ -1,9 +1,11 @@
 import serial
 import time
 from numpy.ma.core import *
-from random import randint
+
+from util import *
 
 from constants import *
+
 
 class Commander:
     def __init__(self, port="COM7", numServos=8):
@@ -43,8 +45,11 @@ class Commander:
         self.failedPackets = -1
         while reply != HELLO:
             self.failedPackets += 1
+            print "about to write hello"
             self.__writeCommand(HELLO)
+            print "wrote command"
             reply = self.ser.readline()
+            print "helloReply: " + reply
         print self.failedPackets
     
     def query(self):
@@ -83,7 +88,7 @@ class Commander:
         '''Framework for setting a single parameter for a single servo'''
         self.__writeCommand(param, args=[servoId,val])
         reply = self.ser.readline()
-        
+        print reply
         if reply[:2] != param:
             raise Exception("did not receive " + str(param))
         
@@ -93,9 +98,23 @@ class Commander:
         
         return reply
     
-    def setVelocity(self, servoId, velocity):
-        '''Sets the velocity of servo. velocity is in the range [0,1023]'''
-        return self.__setSingleServo(servoId, VELOCITY, velocity)
+    def setVelocity(self, velocity):
+        '''Sets the velocity vector. velocity is in the range [0,1023]'''
+        if len(velocity) != self.numServos:
+            raise Exception("invalid position vector--expected " + str(self.numServos) + " items but got " + str(len(velocity)))
+        
+        self.__writeCommand(VELOCITY, velocity)
+        reply = self.ser.readline()
+        
+        if reply[:2] != VELOCITY:
+            raise Exception("did not receive VELOCITY, instead got\n" +reply +" as reply.")
+        
+        reply = [int(pos) for pos in reply[2:-2].split(SEPARATOR)]
+        if len(reply) != self.numServos:
+            raise Exception("invalid reply--expected " + str(self.numServos) + " items but got " + str(len(velocity)))
+        
+        return reply
+        #return self.__setSingleServo(servoId, VELOCITY, velocity)
     
     def setTorque(self, servoId, torque):
         '''Sets the torque of servo. torque is in the range [0,1023]'''
@@ -131,53 +150,76 @@ class Commander:
                 print "time: " + str(timeInterp)
                 print "pos: " + str(motionFunction(timeInterp))
                 self.commandPos(motionFunction(timeInterp))
-            
-def randomFunction(f, startTime, endTime, variance=50, dt = 2):
-    '''Takes in an existing function and perturbs it a little to make a new one'''
-    t = randint(startTime+dt, endTime-dt)
-    y0 = f(t)
-    y = randint(-variance,variance)+y0
-    y = y if y < 1024 else 1024
-    y = y if y >= 0 else 0
-    return smoothPoint(f,y,t,dt) #XXX: what if we go out of the domain or range?
-         
-def smoothPoint(f, y, t, dt):
-    '''Uses a straight-line approximation to bring points within
-    distance dt closer to y=f(t).'''
-    y0 = f(t-dt)
-    y1 = f(t+dt)
-    
-    # h(x) is the new function middle we will substitute
-    h = lambda x : y0+(y-y0)*(x-t-dt)*2/dt if x < t else y+(y1-y)*(x-t)*2/dt
-    
-    # g(x) is the old function with the new part substituted in
-    g = lambda x : f(x) if t > x+dt or t < x-dt else h(x)
-    return g
+
+    def executeSteps(self, steps):
+        # TODO: Set up the initial position
+        
+        # Command the motion sequence
+        for i in range(len(steps)):
+            ((x,y), m) = steps[i]
+            pos = []
+            vel = []
+            for servoId in range(self.numServos):
+                vel.append(dpsToBytes(m[servoId]))
+                pos.append(degreesToBytes(y[servoId]))
+            print pos
+            self.setVelocity(vel)
+            self.commandPos(pos)
+#            ((x,y), m) = steps[i]
+#            print "x=" + str(x)
+#            for j in range(8):
+#                print "\ty=" + str(degreesToBytes(y[j])) + " m=" + str(dpsToBytes(m[j]))
 
 #------------------------------------------------------------------------------------#
 #                                    Demo main functions                             #
 #------------------------------------------------------------------------------------#
 
+def randomInterp():
+    #TODO: the function generated does not have enough variance!
+    #TODO: implement a function generator that has more variance so I can actually see
+    #TODO: if there is any interpolation going on.
+    startTime = 0
+    endTime = 10
+    variance = 100
+    dt = 2
+    
+    fInit = lambda t: 150
+    fVec = [fInit] * 8
+    servos = []
+    for i in range(400):
+        for j in range(len(fVec)):
+            f = fVec[j]
+            fVec[j] = randomFunction(f, startTime, endTime)
+    
+    for i in range(len(fVec)):
+        servos.append(linearInterpolation(fVec[i], startTime, endTime, 1))
+    
+    steps = vectorizeFunctions(servos)
+    
+    robot = Commander(port="COM6")
+    #robot.helloBoard()
+    robot.executeSteps(steps)
+
 def sinWaveMotion():
     '''One possible demo function to move the servos in sin and cosine waves'''
     robot = Commander(port="COM6")
-    r = 512
+    r = 511
     dur = 10
     sinF = lambda t : int(r * (sin(t)) + r)
     cosF = lambda t : int(r * (cos(t)) + r)
-    f = lambda t: (sinF(t), sinF(t), sinF(t), sinF(t), cosF(t), cosF(t), cosF(t), cosF(t))
+    f = lambda t: (sinF(t), sinF(t), sinF(t), sinF(t), cosF(t), cosF(t), cosF(t), 500)
     robot.executeMotionFunction(motionFunction=f, domain=(0,20))
     
 def randomMotion():
     '''Uses randomFunction() to generate new motions'''
     startTime = 0
-    endTime = 20
+    endTime = 10
     variance = 1
     dt = 2
     
     fInit = lambda t: 512
     fVec = [fInit] * 8
-    for i in range(100):
+    for i in range(40):
         for j in range(len(fVec)):
             f = fVec[j]
             fVec[j] = randomFunction(f, startTime, endTime)
@@ -186,10 +228,18 @@ def randomMotion():
                     int(fVec[4](t)),int(fVec[5](t)),int(fVec[6](t)),int(fVec[7](t)))
     
     robot = Commander(port="COM6")
-    robot.helloBoard()
-    robot.executeMotionFunction(mf,domain=(startTime,endTime))
+    #robot.helloBoard()
+    print "past hello"
+    robot.executeMotionFunction(motionFunction=mf,domain=(startTime,endTime))
     
     
 if __name__ == '__main__':
-    robot = Commander(port="COM6")
-    robot.commandPos([512]*8)
+    #robot = Commander(port="COM6")
+    #robot.commandPos([512]*8)
+    randomInterp()
+    #sinWaveMotion()
+#    while True:
+#        sinWaveMotion()
+    
+        
+    

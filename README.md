@@ -7,7 +7,7 @@ Developers
 ----------
 Aracna is under development in Cornell's Creative Machines Lab. ( http://www.creativemachines.org )  
 Contributers include:  
-* Jason Yosinski - Evolutionary Algorithms
-* Jeremy Blum -    Embedded Development, Electronics
+* [Jason Yosinski](http://yosinski.com/) - Evolutionary Algorithms
+* [Jeremy Blum](http://www.jeremyblum.com/) -    Embedded Development, Electronics
 * Eric Gold -      Host Communications
-* Sarah Lohmann -  Mechanics
+* Sara Lohmann -  Mechanics

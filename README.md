@@ -5,7 +5,7 @@ Aracna is a platform for developing evolutionary algorithms in the real world.  
 
 For pictures of the printed robot and more details of the Aracna project, see: http://creativemachines.cornell.edu/aracna
 
-You can also [watch a video of Aracna being 3D printed](www.youtube.com/watch?v=11jYG45HGuo).
+You can also [watch a video of Aracna being 3D printed](http://www.youtube.com/watch?v=11jYG45HGuo).
 
 
 Developers

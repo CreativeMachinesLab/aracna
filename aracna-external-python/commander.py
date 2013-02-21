@@ -1,6 +1,7 @@
 import serial
 import time
 from numpy.ma.core import *
+import os
 
 from util import *
 
@@ -9,6 +10,17 @@ from constants import *
 
 class Commander:
     def __init__(self, port="COM7", numServos=8):
+        #self.ser = serial.Serial(port, 38400)
+        port = None
+        if os.name == "posix":
+            possibilities = ['/dev/ttyUSB0', '/dev/ttyUSB']
+            for pos in possibilities:
+                if os.path.exists(pos):
+                    port = pos
+            if port is None:
+                raise Exception('Could not find any of %s' % repr(possibilities))
+        else:
+            portName = "COM9"
         self.ser = serial.Serial(port, 38400)
         
         self.numServos = numServos
@@ -202,7 +214,7 @@ def randomInterp():
 
 def sinWaveMotion():
     '''One possible demo function to move the servos in sin and cosine waves'''
-    robot = Commander(port="COM6")
+    robot = Commander(port="")
     r = 511
     dur = 10
     sinF = lambda t : int(r * (sin(t)) + r)
@@ -234,10 +246,10 @@ def randomMotion():
     
     
 if __name__ == '__main__':
-    #robot = Commander(port="COM6")
+    #robot = Commander("COM6")
     #robot.commandPos([512]*8)
-    randomInterp()
-    #sinWaveMotion()
+    #randomInterp()
+    sinWaveMotion()
 #    while True:
 #        sinWaveMotion()
     

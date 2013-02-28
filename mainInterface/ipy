@@ -1,0 +1,113 @@
+#!/usr/bin/env python
+"""Python runner wrapped with IPython exception printers for easier debugging.
+
+Usage:
+
+  iprun [-p|-c|-v] your_script [args to your_script]
+
+This tool runs your script exactly as if you'd called
+
+python your_script [args]
+
+but instead of reporting any exceptions via the standard Python traceback
+printer, it uses IPython's enhanced tracebacks, which provide a lot more
+detailed information.
+
+
+Options:
+
+  -p: Use the 'plain' exception reporting mode.
+  -c: Use the 'context' exception reporting mode.
+  -v: Use the 'verbose' exception reporting mode.
+
+The default exception reporting mode can be set in the code.
+
+The color scheme used must be set in the code, it can't be overridden at the
+command line.
+"""
+
+__author__ = 'Fernando Perez <Fernando.Perez@colorado.edu>'
+__license__ = 'BSD'
+
+# Global constants, user configurable
+
+# Default color scheme, this can only be set here
+color_scheme = 'Linux'
+#color_scheme = 'LightBG'
+#color_scheme = 'NoColor'
+
+# Default exception mode, this can be overridden at the cmd line
+#mode = 'Plain'
+#mode = 'Context'
+mode = 'Verbose'
+
+############################################################################
+# No user-serviceable parts below
+############################################################################
+
+import sys
+
+def usage():
+    print __doc__
+    sys.exit(1)
+
+if __name__ == '__main__':
+    # These are the valid modes recognized by our exception handlers
+    modes = dict(p='Plain',
+                 c='Context',
+                 v='Verbose')
+
+    # Determine exception mode.  We only handle a single option for mode and do
+    # so manually, so we can pass the rest of argv to the called program.  If
+    # we use optparse, we'd need to have users separate their program options.
+    argv = sys.argv
+
+    try:
+        arg1 = argv[1]
+    except IndexError:
+        usage()
+        
+    if arg1.startswith('-'):
+        # Handle mode option
+        modearg = arg1[1:].lower()
+        try:
+            mode = modes[modearg]
+        except KeyError:
+            print >> sys.stderr, 'Invalid exception mode.'
+            usage()
+        argv[:] = argv[2:]
+    else:
+        # No mode flag, just pass argv down the chain after popping our name
+        argv[:] = argv[1:]
+
+    # Get filename to run
+    try:
+        fname = argv[0]
+    except IndexError:
+        usage()
+
+    # If all is well up to here, try to run user code immediately.
+    try:
+        execfile(fname)
+    except:
+        # If any error occurs, we load ipython's debugging machinery and
+        # activate it.
+        from IPython.Shell import IPShellEmbed
+        from IPython.ultraTB import FormattedTB
+        import __builtin__
+
+        # Ensure that the last traceback attribute needed by the debugger is
+        # created (otherwise it wouldn't, since we're trapping the exception)
+        sys.last_traceback = sys.exc_info()[2]
+
+        # Now, make an ipython instance so the debugger machinery can activate
+        # below (it relies on the builtin __IPYTHON__ being present)
+        ip = IPShellEmbed([])
+        __builtin__.__IPYTHON__ = ip.IP
+
+        # Make a custom exception handler with our options.  Even if the user
+        # regularly has ipython configured for limited tracebacks, the point of
+        # this code is heavy-duty debugging, so our handler will use our
+        # mode/colors and force the debugger to activate.
+        tbhandler = FormattedTB(mode,color_scheme,tb_offset=1,call_pdb=True)
+        tbhandler()

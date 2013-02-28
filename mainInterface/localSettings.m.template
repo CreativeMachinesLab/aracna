@@ -1,0 +1,14 @@
+function settings = localSettings()
+  % Define settings particular to this checkout, computer, etc. This file is ready by getSettings.
+  
+  % Edit these settinsg to match your actual installation.
+  settings = struct();
+  settings.dataPath = '/tmp/';
+  settings.simulationDir = '/home/team/s/quadratot/code/';
+  settings.simulationExecutable = 'garbageSim.py';
+  settings.robotDir = '/home/team/s/quadratot/code/';
+  settings.robotExecutable = 'DEFINE_THIS';
+  settings.useRobot = false;   % true to use robot, false to use simulator
+
+end
+

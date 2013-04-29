@@ -22,3 +22,5 @@ MAX_SERVO_POS = 300
 
 MIN_SERVO_SPEED = 0 # TODO: this might be incorrect! Must verify through testing
 MAX_SERVO_SPEED = 114 # Speed in RPMs
+
+SPEED_BOOST = 2.7 # increase the speed so that motion functions finish in the allotted time

@@ -73,7 +73,7 @@ class Commander:
             raise Exception("invalid position vector--expected " + str(self.numServos) + " items but got " + str(len(posVector)))
         
         self.__writeCommand(POSITION, posVector)
-        reply = self.ser.readline()
+        reply = self.ser.readline() #FIXME: this line is slow
         
         if reply[:2] != POSITION:
             raise Exception("did not receive POSITION, instead got\n" +reply +" as reply.")
@@ -152,7 +152,7 @@ class Commander:
                 self.commandPos(motionFunction(timeInterp))
 
     def executeSteps(self, steps):
-        # TODO: Set up the initial position
+        # TODO: Current pose interpolation tends to fall behind.
         
         # Command the motion sequence
         for i in range(len(steps)):
@@ -169,6 +169,7 @@ class Commander:
 #            print "x=" + str(x)
 #            for j in range(8):
 #                print "\ty=" + str(degreesToBytes(y[j])) + " m=" + str(dpsToBytes(m[j]))
+#                print "\ty=" + str((y[j])) + " m=" + str((m[j]))
 
 #------------------------------------------------------------------------------------#
 #                                    Demo main functions                             #
@@ -180,17 +181,19 @@ def randomInterp():
     #TODO: if there is any interpolation going on.
     startTime = 0
     endTime = 10
-    variance = 100
-    dt = 2
+    variance = 10000
+    dt = 1
     
-    fInit = lambda t: 150
-    fVec = [fInit] * 8
-    servos = []
+    fInit1 = lambda t: int(130 * sin(t) + 150)
+    fInit2 = lambda t: int(0 if t > 5 else 300)
+    fInit3 = lambda t: int(150 + 130 * sin(t) + 140 * cos(2*t))
+    fVec = [fInit1, fInit2, fInit3, fInit1, fInit2, fInit3, fInit2, fInit1]
     for i in range(400):
         for j in range(len(fVec)):
             f = fVec[j]
             fVec[j] = randomFunction(f, startTime, endTime)
     
+    servos = []
     for i in range(len(fVec)):
         servos.append(linearInterpolation(fVec[i], startTime, endTime, 1))
     
@@ -207,7 +210,10 @@ def sinWaveMotion():
     dur = 10
     sinF = lambda t : int(r * (sin(t)) + r)
     cosF = lambda t : int(r * (cos(t)) + r)
-    f = lambda t: (sinF(t), sinF(t), sinF(t), sinF(t), cosF(t), cosF(t), cosF(t), 500)
+    f1   = lambda t : int(r * (sin(t*10)) + r)
+    f2   = lambda t : int(r * (sin(t) + cos(t)) + r)
+    f = lambda t: (sinF(t), sinF(t), sinF(t), sinF(t), f2(t), f1(t), cosF(t), sinF(t))
+    #f= lambda t: (sinF(t), sinF(t), sinF(t), sinF(t), sinF(t), sinF(t), sinF(t), sinF(t))
     robot.executeMotionFunction(motionFunction=f, domain=(0,20))
     
 def randomMotion():
@@ -236,8 +242,8 @@ def randomMotion():
 if __name__ == '__main__':
     #robot = Commander(port="COM6")
     #robot.commandPos([512]*8)
-    randomInterp()
-    #sinWaveMotion()
+    #randomInterp()
+    sinWaveMotion()
 #    while True:
 #        sinWaveMotion()
     

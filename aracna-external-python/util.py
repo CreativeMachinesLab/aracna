@@ -33,9 +33,9 @@ def smoothPoint(f, y, t, dt):
     return g
 
 def linearInterpolation(f, x0, xf, stepSize):
-    '''Returns a list of tuples of the form ((xGoal,(yVec)),m), where
+    '''Returns a list of tuples of the form ((xGoal,(yGoal)),m), where
             xGoal -- the x-coordinate we want to move to
-            yVec -- the y-coordinate vector we want to move to
+            yGoal -- the y-coordinate we want to move to
             m     -- the slope of the line (ie. speed)
        f    -- the function to be approximated
        x0   -- the starting value of x to evaluate at
@@ -44,7 +44,7 @@ def linearInterpolation(f, x0, xf, stepSize):
     steps = [((x0,(f(x0))), 0)]
     for x in range(x0+stepSize,xf, stepSize):
         ((xP, yP), mP) = steps[x-1]
-        steps.append(((x,f(x)), abs(f(x)-yP)/(float(stepSize))))
+        steps.append(((x,f(x)), SPEED_BOOST * abs(f(x)-yP)/(float(stepSize))))
     return steps
 
 def vectorizeFunctions(servoSteps):

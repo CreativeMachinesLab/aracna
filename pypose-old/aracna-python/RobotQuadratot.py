@@ -92,7 +92,7 @@ class RobotQuadratot():
             if portName is None:
                 raise Exception('Could not find any of %s' % repr(possibilities))
         else:
-            portName = "COM11"
+            portName = "COM7"
 
         serial = dynamixel.SerialStream(port = portName,
                                         baudrate = self.baudRate,

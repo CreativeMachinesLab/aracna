@@ -1,0 +1,18 @@
+Aracna:8:1024:1024:1024:1024:1024:1024:1024:1024
+Pose=neutral-extend:0, 0, 0, 0, 0, 0, 0, 0
+Pose=max:1023, 1023, 1023, 1023, 1023, 1023, 1023, 1023
+Pose=neutral-contract:1023, 512, 1023, 512, 1023, 512, 1023, 512
+Pose=mid:512, 512, 512, 512, 512, 512, 512, 512
+Pose=1:769, 254, 347, 986, 639, 267, 37, 372
+Pose=zero:0, 0, 0, 0, 0, 0, 0, 0
+Pose=beta:0, 508, 0, 521, 515, 0, 515, 0
+Pose=levelextend:1023, 409, 806, 1017, 955, 1023, 1023, 688
+Pose=alpha:515, 0, 515, 0, 0, 515, 0, 515
+Pose=2:12, 608, 930, 174, 1023, 973, 701, 1011
+Pose=nope:1023, 521, 1023, 521, 1023, 515, 1023, 533
+Seq=jumpingjacks: neutral-extend|750, neutral-contract|750
+Seq=swag: alpha|800, beta|800
+Seq=gaita: 1|500, 2|500, 1|500, 2|500, 1|500, 2|500
+Seq=lubricate: zero|1000, max|1000
+Seq=gait1: zero|500, max|500, mid|500, p3|500, mid|500
+Seq=gait2: max|500, p1|500, zero|500, p3|500

@@ -14,3 +14,4 @@ Aracna is under development in [Cornell's Creative Machines Lab](http://creative
 * [Jeremy Blum](http://www.jeremyblum.com/) -    Embedded Development, Electronics
 * Eric Gold -      Host Communications
 * Sara Lohmann -  Mechanics
+* Aaron Silber - Gait Analysis

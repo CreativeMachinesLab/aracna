@@ -164,7 +164,7 @@ class RobotPi():
         resetFirst -- Begin each run by resetting the robot to its
                       base position, currently implemented as a
                       transition from CURRENT -> POS_FLAT ->
-                      POS_READY.  Default: True
+                      POS_STAND.  Default: True
 
         interpBegin -- Number of seconds over which to interpolate
                       from current position to commanded positions.
@@ -172,13 +172,13 @@ class RobotPi():
                       first interpBegin seconds interpolating from its
                       current position to that specified by
                       motionFunction.  This should probably be used
-                      for motion models which do not return POS_READY
+                      for motion models which do not return POS_STAND
                       at time 0.  Not affected by timeScale. Default: None
 
         interpEnd -- Same as interpBegin, but at the end of motion.
                       If interpEnd is not None, interpolation is
                       performed from final commanded position to
-                      POS_READY, over the given number of
+                      POS_STAND, over the given number of
                       seconds. Not affected by timeScale.  Default: None
                       
         timeScale -- Factor by which time should be scaled during this
@@ -221,10 +221,10 @@ class RobotPi():
         if resetFirst:
             self.interpMove(self.readCurrentPosition(), POS_FLAT, 3)
             print "POS_FLAT: " + str(POS_FLAT)
-            print "POS_READY: " + str(POS_READY)
-            self.interpMove(POS_FLAT, POS_READY, 3)
-            #self.interpMove(POS_READY, POS_HALFSTAND, 4)
-            self.currentPos = POS_READY
+            print "POS_STAND: " + str(POS_STAND)
+            self.interpMove(POS_FLAT, POS_STAND, 3)
+            #self.interpMove(POS_STAND, POS_HALFSTAND, 4)
+            self.currentPos = POS_STAND
             self.resetClock()
 
         # Begin with a segment smoothly interpolated between the
@@ -247,7 +247,7 @@ class RobotPi():
         # motion model and a ready position.
         if interpEnd is not None:
             self.interpMove(scaleTime(motionFunction, 1.0/timeScale),
-                            POS_READY,
+                            POS_STAND,
                             interpEnd,
                             logFile, extraLogInfoFn)
 
@@ -326,9 +326,9 @@ class RobotPi():
 #                if seconds < 3:
 #                    goal = lInterp(seconds, [0, 3], startingPos, POS_FLAT)
 #                elif seconds < 6:
-#                    goal = lInterp(seconds, [3, 6], POS_FLAT, POS_READY)
+#                    goal = lInterp(seconds, [3, 6], POS_FLAT, POS_STAND)
 #                elif seconds < 10:
-#                    goal = lInterp(seconds, [6, 10], POS_READY, POS_HALFSTAND)
+#                    goal = lInterp(seconds, [6, 10], POS_STAND, POS_HALFSTAND)
 #                else:
 #                    break
 #
@@ -367,11 +367,11 @@ class RobotPi():
         if persist:
             self.resetClock()
             while self.time < 2.0:
-                self.commandPosition(POS_READY)
+                self.commandPosition(POS_STAND)
                 sleep(.1)
                 self.updateClock()
         else:
-            self.commandPosition(POS_READY)
+            self.commandPosition(POS_STAND)
             sleep(2)
 
     def commandPosition(self, position, crop = True, cropWarning = False):
@@ -463,16 +463,16 @@ class RobotPi():
         '''Moves through a set of checks and makes sure the robot is
         still moving.'''
 
-        self.commandPosition(POS_READY)
+        self.commandPosition(POS_STAND)
         sleep(.8)
 
         success = True
-        success &= self.checkMove(POS_READY,   POS_CHECK_1)
+        success &= self.checkMove(POS_STAND,   POS_CHECK_1)
         success &= self.checkMove(POS_CHECK_1, POS_CHECK_2)
         success &= self.checkMove(POS_CHECK_2, POS_CHECK_3)
         success &= self.checkMove(POS_CHECK_3, POS_CHECK_2)
         success &= self.checkMove(POS_CHECK_2, POS_CHECK_1)
-        success &= self.checkMove(POS_CHECK_1, POS_READY)
+        success &= self.checkMove(POS_CHECK_1, POS_STAND)
 
         return success
 

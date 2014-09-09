@@ -18,11 +18,13 @@ MIN_CENTER = 512 - 120
 MAX_CENTER = 512 + 120
 NORM_CENTER = 512
 
-POS_FLAT      = [512] * 8
-POS_READY     = [770,  40] * 4
+POS_FLAT     = [770,  40] * 4
 POS_HALFSTAND = [700, 100] * 4
 ##POS_STAND     = [512, 150] * 4
 POS_STAND     = [512, 680] * 4
+
+POS_UP_1 = [0, 600] * 4
+POS_UP_2 = [600, 600] * 4
 
 POS_CHECK_1   = [770, 200] * 4
 POS_CHECK_2   = [670, 300] * 4

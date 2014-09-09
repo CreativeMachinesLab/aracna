@@ -5,13 +5,13 @@
 
 ############################
 # Comment out this next line to enable this script
-# exit 0
-############################
+# exit 0 ############################
 
 
-INITIALWAIT=1      # Wait before walking
-MIDDLEWAIT=150
-ENDWAIT=150
+WAIT_1=1      # Wait before walking
+WAIT_2=2
+WAIT_3=150
+WAIT_4=150
 
 
 
@@ -19,16 +19,38 @@ cd ~/aracna/RobotPi
 
 
 
+sleep $WAIT_1
 
-sleep $INITIALWAIT
+./walk.py -t 11 packing_slow
 
-echo "`date` About to call ./walk.py"
+sleep $WAIT_2
+
+./walk.py -t 22 star60_24
+./walk.py -t 2 stand
+
+sleep $WAIT_3
+
+./walk.py -t 21 star6_2
+./walk.py -t 2 stand
+
+sleep $WAIT_4
+
+./walk.py -t 22 star60_24
+./walk.py -t 2 stand
+
+sleep 300
+
+
+
+
+
+
+
+echo "More walking"
+
 ./walk.py -t 20 star62
 ./walk.py -t 20 star62
-./walk.py -t 20 star62
-echo "`date` Finished ./walk.py"
 
-sleep $MIDDLEWAIT
 
 echo "`date` About to call ./walk.py"
 ./walk.py gait1
@@ -36,7 +58,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py gait1
 echo "`date` Finished ./walk.py"
 
-sleep $ENDWAIT
+sleep $WAIT_3
 
 echo "`date` About to call ./walk.py"
 ./walk.py wave
@@ -60,7 +82,7 @@ echo "`date` Finished ./walk.py"
 
 
 
-sleep $INITIALWAIT
+sleep $WAIT_1
 
 echo "`date` About to call ./walk.py"
 ./walk.py swagger
@@ -68,7 +90,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py swagger
 echo "`date` Finished ./walk.py"
 
-sleep $MIDDLEWAIT
+sleep $WAIT_2
 
 echo "`date` About to call ./walk.py"
 ./walk.py gait1
@@ -76,31 +98,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py gait1
 echo "`date` Finished ./walk.py"
 
-sleep $ENDWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py wave
-./walk.py wave
-./walk.py wave
-echo "`date` Finished ./walk.py"
-
-sleep $INITIALWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py swagger
-./walk.py swagger
-./walk.py swagger
-echo "`date` Finished ./walk.py"
-
-sleep $MIDDLEWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py gait1
-./walk.py gait1
-./walk.py gait1
-echo "`date` Finished ./walk.py"
-
-sleep $ENDWAIT
+sleep $WAIT_3
 
 echo "`date` About to call ./walk.py"
 ./walk.py wave
@@ -108,7 +106,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py wave
 echo "`date` Finished ./walk.py"
 
-sleep $INITIALWAIT
+sleep $WAIT_1
 
 echo "`date` About to call ./walk.py"
 ./walk.py swagger
@@ -116,7 +114,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py swagger
 echo "`date` Finished ./walk.py"
 
-sleep $MIDDLEWAIT
+sleep $WAIT_2
 
 echo "`date` About to call ./walk.py"
 ./walk.py gait1
@@ -124,31 +122,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py gait1
 echo "`date` Finished ./walk.py"
 
-sleep $ENDWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py wave
-./walk.py wave
-./walk.py wave
-echo "`date` Finished ./walk.py"
-
-sleep $INITIALWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py swagger
-./walk.py swagger
-./walk.py swagger
-echo "`date` Finished ./walk.py"
-
-sleep $MIDDLEWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py gait1
-./walk.py gait1
-./walk.py gait1
-echo "`date` Finished ./walk.py"
-
-sleep $ENDWAIT
+sleep $WAIT_3
 
 echo "`date` About to call ./walk.py"
 ./walk.py wave
@@ -156,7 +130,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py wave
 echo "`date` Finished ./walk.py"
 
-sleep $INITIALWAIT
+sleep $WAIT_1
 
 echo "`date` About to call ./walk.py"
 ./walk.py swagger
@@ -164,7 +138,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py swagger
 echo "`date` Finished ./walk.py"
 
-sleep $MIDDLEWAIT
+sleep $WAIT_2
 
 echo "`date` About to call ./walk.py"
 ./walk.py gait1
@@ -172,31 +146,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py gait1
 echo "`date` Finished ./walk.py"
 
-sleep $ENDWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py wave
-./walk.py wave
-./walk.py wave
-echo "`date` Finished ./walk.py"
-
-sleep $INITIALWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py swagger
-./walk.py swagger
-./walk.py swagger
-echo "`date` Finished ./walk.py"
-
-sleep $MIDDLEWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py gait1
-./walk.py gait1
-./walk.py gait1
-echo "`date` Finished ./walk.py"
-
-sleep $ENDWAIT
+sleep $WAIT_3
 
 echo "`date` About to call ./walk.py"
 ./walk.py wave
@@ -204,7 +154,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py wave
 echo "`date` Finished ./walk.py"
 
-sleep $INITIALWAIT
+sleep $WAIT_1
 
 echo "`date` About to call ./walk.py"
 ./walk.py swagger
@@ -212,7 +162,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py swagger
 echo "`date` Finished ./walk.py"
 
-sleep $MIDDLEWAIT
+sleep $WAIT_2
 
 echo "`date` About to call ./walk.py"
 ./walk.py gait1
@@ -220,31 +170,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py gait1
 echo "`date` Finished ./walk.py"
 
-sleep $ENDWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py wave
-./walk.py wave
-./walk.py wave
-echo "`date` Finished ./walk.py"
-
-sleep $INITIALWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py swagger
-./walk.py swagger
-./walk.py swagger
-echo "`date` Finished ./walk.py"
-
-sleep $MIDDLEWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py gait1
-./walk.py gait1
-./walk.py gait1
-echo "`date` Finished ./walk.py"
-
-sleep $ENDWAIT
+sleep $WAIT_3
 
 echo "`date` About to call ./walk.py"
 ./walk.py wave
@@ -252,7 +178,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py wave
 echo "`date` Finished ./walk.py"
 
-sleep $INITIALWAIT
+sleep $WAIT_1
 
 echo "`date` About to call ./walk.py"
 ./walk.py swagger
@@ -260,7 +186,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py swagger
 echo "`date` Finished ./walk.py"
 
-sleep $MIDDLEWAIT
+sleep $WAIT_2
 
 echo "`date` About to call ./walk.py"
 ./walk.py gait1
@@ -268,31 +194,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py gait1
 echo "`date` Finished ./walk.py"
 
-sleep $ENDWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py wave
-./walk.py wave
-./walk.py wave
-echo "`date` Finished ./walk.py"
-
-sleep $INITIALWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py swagger
-./walk.py swagger
-./walk.py swagger
-echo "`date` Finished ./walk.py"
-
-sleep $MIDDLEWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py gait1
-./walk.py gait1
-./walk.py gait1
-echo "`date` Finished ./walk.py"
-
-sleep $ENDWAIT
+sleep $WAIT_3
 
 echo "`date` About to call ./walk.py"
 ./walk.py wave
@@ -300,7 +202,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py wave
 echo "`date` Finished ./walk.py"
 
-sleep $INITIALWAIT
+sleep $WAIT_1
 
 echo "`date` About to call ./walk.py"
 ./walk.py swagger
@@ -308,7 +210,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py swagger
 echo "`date` Finished ./walk.py"
 
-sleep $MIDDLEWAIT
+sleep $WAIT_2
 
 echo "`date` About to call ./walk.py"
 ./walk.py gait1
@@ -316,31 +218,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py gait1
 echo "`date` Finished ./walk.py"
 
-sleep $ENDWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py wave
-./walk.py wave
-./walk.py wave
-echo "`date` Finished ./walk.py"
-
-sleep $INITIALWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py swagger
-./walk.py swagger
-./walk.py swagger
-echo "`date` Finished ./walk.py"
-
-sleep $MIDDLEWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py gait1
-./walk.py gait1
-./walk.py gait1
-echo "`date` Finished ./walk.py"
-
-sleep $ENDWAIT
+sleep $WAIT_3
 
 echo "`date` About to call ./walk.py"
 ./walk.py wave
@@ -348,7 +226,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py wave
 echo "`date` Finished ./walk.py"
 
-sleep $INITIALWAIT
+sleep $WAIT_1
 
 echo "`date` About to call ./walk.py"
 ./walk.py swagger
@@ -356,7 +234,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py swagger
 echo "`date` Finished ./walk.py"
 
-sleep $MIDDLEWAIT
+sleep $WAIT_2
 
 echo "`date` About to call ./walk.py"
 ./walk.py gait1
@@ -364,31 +242,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py gait1
 echo "`date` Finished ./walk.py"
 
-sleep $ENDWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py wave
-./walk.py wave
-./walk.py wave
-echo "`date` Finished ./walk.py"
-
-sleep $INITIALWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py swagger
-./walk.py swagger
-./walk.py swagger
-echo "`date` Finished ./walk.py"
-
-sleep $MIDDLEWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py gait1
-./walk.py gait1
-./walk.py gait1
-echo "`date` Finished ./walk.py"
-
-sleep $ENDWAIT
+sleep $WAIT_3
 
 echo "`date` About to call ./walk.py"
 ./walk.py wave
@@ -396,7 +250,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py wave
 echo "`date` Finished ./walk.py"
 
-sleep $INITIALWAIT
+sleep $WAIT_1
 
 echo "`date` About to call ./walk.py"
 ./walk.py swagger
@@ -404,7 +258,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py swagger
 echo "`date` Finished ./walk.py"
 
-sleep $MIDDLEWAIT
+sleep $WAIT_2
 
 echo "`date` About to call ./walk.py"
 ./walk.py gait1
@@ -412,31 +266,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py gait1
 echo "`date` Finished ./walk.py"
 
-sleep $ENDWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py wave
-./walk.py wave
-./walk.py wave
-echo "`date` Finished ./walk.py"
-
-sleep $INITIALWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py swagger
-./walk.py swagger
-./walk.py swagger
-echo "`date` Finished ./walk.py"
-
-sleep $MIDDLEWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py gait1
-./walk.py gait1
-./walk.py gait1
-echo "`date` Finished ./walk.py"
-
-sleep $ENDWAIT
+sleep $WAIT_3
 
 echo "`date` About to call ./walk.py"
 ./walk.py wave
@@ -444,7 +274,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py wave
 echo "`date` Finished ./walk.py"
 
-sleep $INITIALWAIT
+sleep $WAIT_1
 
 echo "`date` About to call ./walk.py"
 ./walk.py swagger
@@ -452,7 +282,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py swagger
 echo "`date` Finished ./walk.py"
 
-sleep $MIDDLEWAIT
+sleep $WAIT_2
 
 echo "`date` About to call ./walk.py"
 ./walk.py gait1
@@ -460,31 +290,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py gait1
 echo "`date` Finished ./walk.py"
 
-sleep $ENDWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py wave
-./walk.py wave
-./walk.py wave
-echo "`date` Finished ./walk.py"
-
-sleep $INITIALWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py swagger
-./walk.py swagger
-./walk.py swagger
-echo "`date` Finished ./walk.py"
-
-sleep $MIDDLEWAIT
-
-echo "`date` About to call ./walk.py"
-./walk.py gait1
-./walk.py gait1
-./walk.py gait1
-echo "`date` Finished ./walk.py"
-
-sleep $ENDWAIT
+sleep $WAIT_3
 
 echo "`date` About to call ./walk.py"
 ./walk.py wave
@@ -492,7 +298,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py wave
 echo "`date` Finished ./walk.py"
 
-sleep $INITIALWAIT
+sleep $WAIT_1
 
 echo "`date` About to call ./walk.py"
 ./walk.py swagger
@@ -500,7 +306,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py swagger
 echo "`date` Finished ./walk.py"
 
-sleep $MIDDLEWAIT
+sleep $WAIT_2
 
 echo "`date` About to call ./walk.py"
 ./walk.py gait1
@@ -508,7 +314,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py gait1
 echo "`date` Finished ./walk.py"
 
-sleep $ENDWAIT
+sleep $WAIT_3
 
 echo "`date` About to call ./walk.py"
 ./walk.py wave
@@ -516,7 +322,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py wave
 echo "`date` Finished ./walk.py"
 
-sleep $INITIALWAIT
+sleep $WAIT_1
 
 echo "`date` About to call ./walk.py"
 ./walk.py swagger
@@ -524,7 +330,7 @@ echo "`date` About to call ./walk.py"
 ./walk.py swagger
 echo "`date` Finished ./walk.py"
 
-sleep $MIDDLEWAIT
+sleep $WAIT_2
 
 echo "`date` About to call ./walk.py"
 ./walk.py gait1
@@ -532,7 +338,223 @@ echo "`date` About to call ./walk.py"
 ./walk.py gait1
 echo "`date` Finished ./walk.py"
 
-sleep $ENDWAIT
+sleep $WAIT_3
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_1
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_2
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_3
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_1
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_2
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_3
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_1
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_2
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_3
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_1
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_2
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_3
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_1
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_2
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_3
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_1
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_2
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_3
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_1
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_2
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_3
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_1
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_2
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_3
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_1
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_2
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $WAIT_3
 
 echo "`date` About to call ./walk.py"
 ./walk.py wave

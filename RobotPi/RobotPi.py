@@ -158,7 +158,8 @@ class RobotPi():
 
         runSeconds -- How many seconds to run for.  This is in
                       addition to the time added for interpBegin and
-                      interpEnd, if any.  Default: 10
+                      interpEnd, if any.  Not affected by time
+                      scale. Default: 10
 
         resetFirst -- Begin each run by resetting the robot to its
                       base position, currently implemented as a
@@ -172,13 +173,13 @@ class RobotPi():
                       current position to that specified by
                       motionFunction.  This should probably be used
                       for motion models which do not return POS_READY
-                      at time 0.  Affected by timeScale. Default: None
+                      at time 0.  Not affected by timeScale. Default: None
 
         interpEnd -- Same as interpBegin, but at the end of motion.
                       If interpEnd is not None, interpolation is
                       performed from final commanded position to
                       POS_READY, over the given number of
-                      seconds. Affected by timeScale.  Default: None
+                      seconds. Not affected by timeScale.  Default: None
                       
         timeScale -- Factor by which time should be scaled during this
                       run, higher is slower. Default: 1
@@ -189,6 +190,7 @@ class RobotPi():
         extraLogInfoFn -- Function to call and append info to every
                       line the log file. Should return a
                       string. Default: None
+
         '''
 
         #net, actuators = initialize()
@@ -196,6 +198,8 @@ class RobotPi():
         #def run(self, motionFunction, runSeconds = 10, resetFirst = True
         #    interpBegin = 0, interpEnd = 0):
 
+        timeScale = float(timeScale)
+        
         if self.loud:
             print 'Starting motion.'
 
@@ -227,24 +231,24 @@ class RobotPi():
         # current position and the motion model.
         if interpBegin is not None:
             self.interpMove(self.currentPos,
-                            scaleTime(motionFunction, timeScale),
-                            interpBegin * timeScale,
+                            scaleTime(motionFunction, 1.0/timeScale),
+                            interpBegin,
                             logFile, extraLogInfoFn)
             self.currentPos = motionFunction(self.time)
 
         # Main motion segment
-        self.interpMove(scaleTime(motionFunction, timeScale),
-                        scaleTime(motionFunction, timeScale),
-                        runSeconds * timeScale,
+        self.interpMove(scaleTime(motionFunction, 1.0/timeScale),
+                        scaleTime(motionFunction, 1.0/timeScale),
+                        runSeconds,
                         logFile, extraLogInfoFn)
         self.currentPos = motionFunction(self.time)
 
         # End with a segment smoothly interpolated between the
         # motion model and a ready position.
         if interpEnd is not None:
-            self.interpMove(scaleTime(motionFunction, timeScale),
+            self.interpMove(scaleTime(motionFunction, 1.0/timeScale),
                             POS_READY,
-                            interpEnd * timeScale,
+                            interpEnd,
                             logFile, extraLogInfoFn)
 
         failures = self.pingAll()

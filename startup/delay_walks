@@ -30,7 +30,7 @@ sleep $WAIT_2
 
 sleep $WAIT_3
 
-./walk.py -t 21 star6_2
+./walk.py -t 22 star6_2
 ./walk.py -t 2 stand
 
 sleep $WAIT_4

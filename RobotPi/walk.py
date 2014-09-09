@@ -31,7 +31,7 @@ def main():
                         help = 'Speed, higher is slower (default: 1.0)')
     parser.add_argument('-t', '--time', type = float, default = 10.0,
                         help = 'Total length of time (default: 10.0)')
-    parser.add_argument('gait', type = str, default = 'swagger', choices = ['jumpingjacks','swagger','gaita','lubricate','gait1','gait2','swagger','sine','wave', 'star6', 'star2', 'star62'], nargs='?',
+    parser.add_argument('gait', type = str, default = 'star60', choices = ['jumpingjacks','swagger','gaita','lubricate','gait1','gait2','swagger','sine','wave', 'star6', 'star0', 'star2', 'star4', 'star60', 'star24', 'star6_2', 'star60_24', 'packing_slow', 'stand'], nargs='?',
                         help = 'Which gait to play, options are: swagger. Default: swagger')
     args = parser.parse_args()
 

@@ -50,15 +50,25 @@ s0 = [300, 300, 300, 300, 300, 300, 300, 300]
 #s3 = s0 + array([0, 0, -100, 300, 0, 0, -100, -300])
 #s4 = s0 + array([0, 0, -100, -300, 0, 0, -100, 300])
 
-s1 = s0 + array([-200, 0, 0, 0, -200, 0, 0, 0])
-s2 = s0 + array([-200, 0, 0, 300, -200, 0, 0, -300])
-s3 = s0 + array([0, 0, -200, 300, 0, 0, -200, -300])
-s4 = s0 + array([0, 0, -200, -300, 0, 0, -200, 300])
+s1a = s0 + array([-200, 0, 0, 0, -200, 0, 0, 0])
+s2a = s0 + array([-200, 0, 0, 300, -200, 0, 0, -300])
+s3a = s0 + array([0, 0, -200, 300, 0, 0, -200, -300])
+s4a = s0 + array([0, 0, -200, -300, 0, 0, -200, 300])
 
-s1b = s0 + array([-200, 0, 0, 0, -200, 0, 0, 0])
-s2b = s0 + array([-200, 0, 0, -300, -200, 0, 0, 300])
-s3b = s0 + array([0, 0, -200, -300, 0, 0, -200, 300])
-s4b = s0 + array([0, 0, -200, 300, 0, 0, -200, -300])
+s1b = s0 + array([0, 0, -200, 0, 0, 0, -200, 0])
+s2b = s0 + array([0, -300, -200, 0, 0, 300, -200, 0])
+s3b = s0 + array([-200, -300, 0, 0, -200, 300, 0, 0])
+s4b = s0 + array([-200, 300, 0, 0, -200, -300, 0, 0])
+
+s1c = s0 + array([-200, 0, 0, 0, -200, 0, 0, 0])
+s2c = s0 + array([-200, 0, 0, -300, -200, 0, 0, 300])
+s3c = s0 + array([0, 0, -200, -300, 0, 0, -200, 300])
+s4c = s0 + array([0, 0, -200, 300, 0, 0, -200, -300])
+
+s1d = s0 + array([0, 0, -200, 0, 0, 0, -200, 0])
+s2d = s0 + array([0, 300, -200, 0, 0, -300, -200, 0])
+s3d = s0 + array([-200, 300, 0, 0, -200, -300, 0, 0])
+s4d = s0 + array([-200, -300, 0, 0, -200, 300, 0, 0])
 
 
 
@@ -90,20 +100,6 @@ def jumpingjacks(time):
 def swagger(time):
     return repeating_motion(time, [.8, .8], [pose_alpha, pose_beta])
 
-def star6(time):
-    return repeating_motion(time, [.5, .2, .5, .2], [s1, s2, s3, s4])
-
-def star2(time):
-    return repeating_motion(time, [.5, .2, .5, .2], [s1b, s2b, s3b, s4b])
-
-def star62(time):
-    if time < 1:
-        return s0
-    elif time < 11:
-        return star6(time)
-    else:
-        return star2(time)
-
 def gaita(time):
     return repeating_motion(time, [.5, .5], [pose_1, pose_2])
 
@@ -122,13 +118,61 @@ def sine(time):
     '''Just a sine wave on all motors.'''
     return array([512 + 100*sin(time) for ss in range(8)])
 
-def wave(time):
+def wave2(time):
     '''Wave with one motor.'''
     vv = 512 + 100*sin(time)
-    ret = array(POS_READY)
-    ret[1] = vv
+    ret = array(POS_FLAT)
+    #ret[1] = vv
     return ret
 
+
+# JBY: Hand coded gaits
+def star6(time):
+    return repeating_motion(time, [.5, .2, .5, .2], [s1a, s2a, s3a, s4a])
+
+def star0(time):
+    return repeating_motion(time, [.5, .2, .5, .2], [s1b, s2b, s3b, s4b])
+
+def star2(time):
+    return repeating_motion(time, [.5, .2, .5, .2], [s1c, s2c, s3c, s4c])
+
+def star4(time):
+    return repeating_motion(time, [.5, .2, .5, .2], [s1d, s2d, s3d, s4d])
+
+def star60(time):
+    return repeating_motion(time, [.5, .2, .5, .05, .5, .2, .5, .05], [s1a, s2a, s3a, s4a, s1b, s2b, s3b, s4b])
+
+def star24(time):
+    return repeating_motion(time, [.5, .2, .5, .05, .5, .2, .5, .05], [s1c, s2c, s3c, s4c, s1d, s2d, s3d, s4d])
+
+def star6_2(time):
+    if time < 1:
+        return s0
+    elif time < 11:
+        return star6(time)
+    else:
+        return star2(time)
+
+def star60_24(time):
+    if time < 1:
+        return s0
+    elif time < 11:
+        return star60(time)
+    else:
+        return star24(time)
+
+
+
+def packing_slow(time):
+    if time < 3:
+        return POS_FLAT
+    elif time < 5:
+        return repeating_motion(time-3, [2, 2], [POS_FLAT, POS_UP_1])
+    else:
+        return repeating_motion(time-5, [7, 7], [POS_UP_1, POS_UP_2])
+
+def stand(time):
+    return POS_STAND
 
 
 # Get git based on name
@@ -151,14 +195,24 @@ def get_gait(gait_name):
         return wave
     elif (gait_name == 'star6'):
         return star6
+    elif (gait_name == 'star0'):
+        return star0
     elif (gait_name == 'star2'):
         return star2
-    elif (gait_name == 'star62'):
-        return star62
-    elif (gait_name == 'wave'):
-        return wave
-    elif (gait_name == 'wave'):
-        return wave
+    elif (gait_name == 'star4'):
+        return star4
+    elif (gait_name == 'star60'):
+        return star60
+    elif (gait_name == 'star24'):
+        return star24
+    elif (gait_name == 'star6_2'):
+        return star6_2
+    elif (gait_name == 'star60_24'):
+        return star60_24
+    elif (gait_name == 'packing_slow'):
+        return packing_slow
+    elif (gait_name == 'stand'):
+        return stand
     else:
         raise Exception('Unknown gait name: "%s"' % gait_name)
 

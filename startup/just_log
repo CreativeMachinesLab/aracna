@@ -1,0 +1,8 @@
+#! /bin/bash
+
+LOG=$HOME/log/startup.log
+
+echo "probably going nowhere"
+
+echo "`date` this line is logged" >> $LOG
+

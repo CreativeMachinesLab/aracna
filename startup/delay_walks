@@ -1,0 +1,542 @@
+#! /bin/sh -x
+
+# This should be called on system boot
+
+
+############################
+# Comment out this next line to enable this script
+# exit 0
+############################
+
+
+INITIALWAIT=1      # Wait before walking
+MIDDLEWAIT=150
+ENDWAIT=150
+
+
+
+cd ~/aracna/RobotPi
+
+
+
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py -t 20 star62
+./walk.py -t 20 star62
+./walk.py -t 20 star62
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+
+sleep $INITIALWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py swagger
+./walk.py swagger
+./walk.py swagger
+echo "`date` Finished ./walk.py"
+
+sleep $MIDDLEWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py gait1
+./walk.py gait1
+./walk.py gait1
+echo "`date` Finished ./walk.py"
+
+sleep $ENDWAIT
+
+echo "`date` About to call ./walk.py"
+./walk.py wave
+./walk.py wave
+./walk.py wave
+echo "`date` Finished ./walk.py"
+

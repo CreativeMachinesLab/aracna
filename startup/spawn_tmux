@@ -1,0 +1,14 @@
+#! /bin/bash
+### BEGIN INIT INFO
+# Provides:          spawn_tmux
+# Required-Start:    
+# Required-Stop:     
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Aracna startup script.
+### END INIT INFO
+
+# Install this script like so:
+#   sudo cp ~/aracna/startup/spawn_tmux /etc/init.d/ && sudo update-rc.d spawn_tmux defaults
+
+sudo -u pi /home/pi/aracna/startup/spawn_tmux_helper

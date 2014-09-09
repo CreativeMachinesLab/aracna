@@ -1,0 +1,18 @@
+#! /bin/bash
+
+HOME=/home/pi
+LOG=$HOME/log/startup.log
+
+echo "`date` running as user `whoami`" >> $LOG
+
+tmux new-session -d -s startup
+
+tmux send-keys  -t startup "$HOME/tunup" Enter
+
+tmux new-window -t startup
+tmux send-keys  -t startup "$HOME/aracna/startup/delay_walks" Enter
+
+tmux new-window -t startup
+tmux send-keys  -t startup "$HOME/aracna/startup/just_log" Enter
+
+echo "`date` started tmux." >> $LOG

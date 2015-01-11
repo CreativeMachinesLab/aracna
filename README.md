@@ -7,7 +7,7 @@ For pictures of the printed robot and more details of the Aracna project, see: h
 
 If you use Aracna in your research, please cite the following paper:
 
-Sara Lohmann, Jason Yosinski, Eric Gold, Jeff Clune, Jeremy Blum and Hod Lipson. [Aracna: An Open-Source Quadruped Platform for Evolutionary Robotics](http://yosinski.com/media/papers/Lohmann2012AracnaAnOpenSourceQuadrupedPlatform.pdf). Proceedings of the 13th International Conference on the Synthesis and Simulation of Living Systems. 2012.
+    Sara Lohmann, Jason Yosinski, Eric Gold, Jeff Clune, Jeremy Blum and Hod Lipson. [Aracna: An Open-Source Quadruped Platform for Evolutionary Robotics](http://yosinski.com/media/papers/Lohmann2012AracnaAnOpenSourceQuadrupedPlatform.pdf). Proceedings of the 13th International Conference on the Synthesis and Simulation of Living Systems. 2012.
 
 
 Developers
